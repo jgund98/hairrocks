@@ -16,7 +16,7 @@ export const SITE = {
     zip: "33426",
   },
   geo: { lat: 26.556, lng: -80.0907 },
-  booking: "https://online.rosysalonsoftware.com/onlineBooking?id=50395",
+  booking: "https://online.rosysalonsoftware.com/about/50395",
   giftCards: "https://online.rosysalonsoftware.com/giftcard?id=50395",
   googleReviews:
     "https://www.google.com/search?q=hair+rocks+studio+boynton+beach+fl+33426",

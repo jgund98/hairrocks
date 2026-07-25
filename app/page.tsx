@@ -186,6 +186,7 @@ export default function Home() {
           <Reveal delay={0.08} className="mx-auto w-full max-w-[400px]">
             <ColorReveal
               src="/images/perm-curls.jpg"
+              bwSrc="/images/perm-curls-bw.jpg"
               alt="Spiral curls with caramel-blonde dimension — run your hand across to bring the color back"
             />
           </Reveal>

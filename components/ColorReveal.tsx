@@ -1,55 +1,60 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 /* ── The garage-door moment ──────────────────────────────────────────────────
-   A colorist's site should let you *color*. The photo starts in black & white;
-   moving your hand (or finger) across it paints the pink back in, stroke by
-   stroke — like color melting through a rinse. GPU-cheap: one canvas, strokes
-   erase a desaturated cover to reveal the color image beneath. */
-export default function ColorReveal({ src, alt }: { src: string; alt: string }) {
-  const wrapRef = useRef<HTMLDivElement>(null);
+   A colorist's site should let you *color*. The photo starts black & white;
+   moving your hand (or finger) across it paints the color back in, stroke by
+   stroke. The B&W cover is a precomputed image drawn with plain drawImage —
+   no canvas blend modes, which silently fail on some mobile browsers —
+   and strokes erase it with destination-out (universally supported). */
+export default function ColorReveal({
+  src,
+  bwSrc,
+  alt,
+}: {
+  src: string;
+  bwSrc: string;
+  alt: string;
+}) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const imgRef = useRef<HTMLImageElement | null>(null);
+  const coverImg = useRef<HTMLImageElement | null>(null);
   const drawing = useRef(false);
   const last = useRef<{ x: number; y: number } | null>(null);
   const [touched, setTouched] = useState(false);
   const [done, setDone] = useState(false);
 
-  // Paint the desaturated cover
-  const paintCover = () => {
+  const paintCover = useCallback(() => {
     const canvas = canvasRef.current;
-    const img = imgRef.current;
-    if (!canvas || !img || !img.complete) return;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const img = coverImg.current;
+    if (!canvas || !img || !img.complete || img.naturalWidth === 0) return;
     const rect = canvas.getBoundingClientRect();
+    if (rect.width < 2 || rect.height < 2) return; // layout not ready — retry comes via ResizeObserver
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
     canvas.width = Math.round(rect.width * dpr);
     canvas.height = Math.round(rect.height * dpr);
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
     ctx.globalCompositeOperation = "source-over";
-    // cover = the same photo, drained of color
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-    ctx.globalCompositeOperation = "saturation";
-    ctx.fillStyle = "#808080";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    // warm it slightly so B&W doesn't feel cold
-    ctx.globalCompositeOperation = "multiply";
-    ctx.fillStyle = "rgba(248,244,236,0.92)";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.globalCompositeOperation = "source-over";
-  };
+  }, []);
 
   useEffect(() => {
     const img = new window.Image();
-    img.src = src;
-    imgRef.current = img;
-    img.onload = paintCover;
+    img.src = bwSrc;
+    coverImg.current = img;
+    // decode() guarantees the bitmap is actually ready before first paint
+    const ready = img.decode ? img.decode().catch(() => {}) : Promise.resolve();
+    ready.then(() => {
+      paintCover();
+      // one retry on the next frame covers late layout on slow mobiles
+      requestAnimationFrame(paintCover);
+    });
     const ro = new ResizeObserver(paintCover);
     if (canvasRef.current) ro.observe(canvasRef.current);
     return () => ro.disconnect();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [src]);
+  }, [bwSrc, paintCover]);
 
   const stroke = (x: number, y: number) => {
     const canvas = canvasRef.current;
@@ -83,8 +88,7 @@ export default function ColorReveal({ src, alt }: { src: string; alt: string }) 
 
   const revealAll = () => {
     const canvas = canvasRef.current;
-    const ctx = canvas?.getContext("2d");
-    if (!canvas || !ctx) return;
+    if (!canvas) return;
     canvas.style.transition = "opacity 1.4s ease";
     canvas.style.opacity = "0";
     setDone(true);
@@ -103,12 +107,12 @@ export default function ColorReveal({ src, alt }: { src: string; alt: string }) 
 
   return (
     <div className="relative">
-      <div ref={wrapRef} className="arch relative overflow-hidden shadow-lift">
+      <div className="arch relative overflow-hidden shadow-lift">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={src} alt={alt} className="block w-full select-none" draggable={false} />
         <canvas
           ref={canvasRef}
-          className="absolute inset-0 h-full w-full cursor-crosshair touch-none"
+          className="absolute inset-0 h-full w-full cursor-crosshair [touch-action:pan-y]"
           onPointerDown={(e) => {
             drawing.current = true;
             setTouched(true);
@@ -129,6 +133,10 @@ export default function ColorReveal({ src, alt }: { src: string; alt: string }) 
             last.current = null;
           }}
           onPointerLeave={() => {
+            drawing.current = false;
+            last.current = null;
+          }}
+          onPointerCancel={() => {
             drawing.current = false;
             last.current = null;
           }}

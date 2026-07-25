@@ -44,7 +44,10 @@ export default function HomeHero() {
   const wrap = useRef<HTMLDivElement>(null);
 
   return (
-    <div ref={wrap} className="relative mx-auto grid w-full max-w-7xl flex-1 items-center gap-x-14 gap-y-7 px-4 py-6 sm:px-6 lg:grid-cols-[1.02fr_0.98fr] lg:px-8 lg:py-10">
+    <div
+      ref={wrap}
+      className="relative mx-auto grid w-full max-w-7xl flex-1 content-center gap-x-14 gap-y-6 px-4 py-6 [grid-template-areas:'a'_'v'_'b'] sm:px-6 lg:grid-cols-[1.02fr_0.98fr] lg:grid-rows-[auto_auto] lg:gap-y-0 lg:[grid-template-areas:'a_v'_'b_v'] lg:px-8 lg:py-10"
+    >
       {/* Ghost logo watermark — the brand literally behind everything */}
       <Image
         src="/images/logo.png"
@@ -56,7 +59,7 @@ export default function HomeHero() {
         className="pointer-events-none absolute -left-24 top-1/2 hidden w-[540px] -translate-y-1/2 rotate-[-9deg] opacity-[0.05] lg:block"
       />
 
-      <div className="relative text-center lg:text-left">
+      <div className="relative text-center [grid-area:a] lg:self-end lg:text-left">
         <motion.p
           initial={reduce ? false : { opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
@@ -111,9 +114,13 @@ export default function HomeHero() {
             </span></span>
           </motion.span>
         </h1>
+      </div>
 
+      {/* On mobile the hair itself comes right after the headline — you know
+          it's a salon before you scroll */}
+      <div className="relative text-center [grid-area:b] lg:self-start lg:text-left">
         {/* Content lands fast — never waits on theatrics */}
-        <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-ink-soft lg:mx-0">
+        <p className="mx-auto mt-0 max-w-xl text-lg leading-relaxed text-ink-soft lg:mx-0 lg:mt-5">
           Balayage, precision cuts, gray coverage, perms &amp; keratin — in clean
           OYA color, inside Artisans Salon on Congress&nbsp;Avenue.
         </p>
@@ -126,7 +133,7 @@ export default function HomeHero() {
         </div>
       </div>
 
-      <div className="relative mx-auto w-full max-w-[400px] pt-2 sm:max-w-[440px] lg:pt-0">
+      <div className="relative mx-auto w-full max-w-[400px] pt-2 [grid-area:v] sm:max-w-[460px] lg:place-self-center lg:pt-0">
         <div className="arch relative overflow-hidden bg-clay shadow-lift">
           <FlipImage
             src="/images/hero-flip.jpg"
@@ -135,7 +142,7 @@ export default function HomeHero() {
             height={1334}
             priority
             sizes="(max-width: 1024px) 92vw, 440px"
-            imgClassName="aspect-[4/5] object-[62%_30%] sm:aspect-[5/6]"
+            imgClassName="aspect-[16/11] object-[62%_30%] lg:aspect-[5/6]"
           />
           <span className="pointer-events-none absolute inset-x-0 bottom-4 flex justify-center pr-24 sm:pr-16">
             <span className="rounded-full bg-forest/75 px-4 py-2 text-xs font-bold tracking-wide text-cream backdrop-blur-sm">
