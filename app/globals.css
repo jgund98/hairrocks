@@ -1,26 +1,108 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* ── Hair Rocks palette · logo chartreuse, neon lime, hot pink, deep forest ── */
+  --color-cream: #faf6ec;
+  --color-paper: #fffdf7;
+  --color-sand: #f1ead6;
+  --color-forest: #142012;
+  --color-pine: #1f3319;
+  --color-moss: #3e6b21;
+  --color-leaf: #8dc63f;
+  --color-leaf-bright: #b5e94d;
+  --color-rose: #f2679f;
+  --color-rose-deep: #e0447f;
+  --color-blush: #fce7f0;
+  --color-clay: #7a6353;
+  --color-ink: #1d2417;
+  --color-ink-soft: #55604b;
+
+  --font-display: var(--font-bricolage), "Arial Black", sans-serif;
+  --font-accent: var(--font-fraunces), "Georgia", serif;
+  --font-body: var(--font-nunito), "Segoe UI", sans-serif;
+
+  --shadow-lift: 0 20px 50px -18px rgb(20 32 18 / 0.4);
+  --shadow-chip: 0 8px 24px -10px rgb(20 32 18 / 0.5);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+/* Accent words inside headings speak in the logo's calligraphic voice */
+h1 em, h2 em, h3 em, .accent {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+::selection {
+  background: var(--color-leaf);
+  color: var(--color-forest);
+}
+
+/* Organic arch imagery — the site's signature shape */
+.arch {
+  border-radius: 999px 999px 24px 24px / 620px 620px 24px 24px;
+}
+.arch-full {
+  border-radius: 50%;
+}
+
+/* Slow spin for the logo stamp */
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+.spin-slow {
+  animation: spin-slow 22s linear infinite;
+}
+
+/* Gentle float for sticker chips */
+@keyframes float-soft {
+  0%, 100% { transform: translateY(0) rotate(var(--tilt, -4deg)); }
+  50% { transform: translateY(-8px) rotate(var(--tilt, -4deg)); }
+}
+.float-soft {
+  animation: float-soft 5.5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spin-slow, .float-soft { animation: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* Grain — makes flat color feel printed, not rendered */
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.04 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Focus rings that match the brand */
+a:focus-visible, button:focus-visible {
+  outline: 3px solid var(--color-leaf);
+  outline-offset: 3px;
+  border-radius: 6px;
 }
