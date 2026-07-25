@@ -6,6 +6,7 @@ import HomeHero from "@/components/HomeHero";
 import TownsMarquee from "@/components/TownsMarquee";
 import ServicesMarquee from "@/components/ServicesMarquee";
 import ColorReveal from "@/components/ColorReveal";
+import LazyVideo from "@/components/LazyVideo";
 import Reveal from "@/components/Reveal";
 import { BookButton, CallChip, Eyebrow, OyaChip, Stars, Swish, TextLink } from "@/components/ui";
 
@@ -295,18 +296,11 @@ export default function Home() {
 
       {/* ── BOOK BAND · subtle video backdrop ────────────────────────────── */}
       <section className="relative overflow-hidden bg-forest py-24 text-center text-cream lg:py-32">
-        <video
+        <LazyVideo
           className="absolute inset-0 h-full w-full object-cover opacity-[0.18]"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="none"
+          src="/videos/salon-loop.mp4"
           poster="/videos/salon-loop-poster.jpg"
-          aria-hidden
-        >
-          <source src="/videos/salon-loop.mp4" type="video/mp4" />
-        </video>
+        />
         <div className="absolute inset-0 bg-gradient-to-b from-forest/60 via-transparent to-forest/70" aria-hidden />
         <div className="relative mx-auto max-w-3xl px-4 sm:px-6">
           <Reveal>
