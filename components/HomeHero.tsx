@@ -178,10 +178,10 @@ export default function HomeHero() {
         </motion.div>
 
         <Sticker tone="pink" tilt="5deg" delay={0.65} className="-right-2 top-[16%] sm:-right-6">
-          Balayage · $165
+          Balayage · from $165
         </Sticker>
         <Sticker tone="lime" tilt="-6deg" delay={0.8} className="-left-2 bottom-[22%] sm:-left-7">
-          Cuts · from $25
+          Cuts · from $22
         </Sticker>
 
         {/* Spinning stamp — bottom right, overlapping the arch edge */}

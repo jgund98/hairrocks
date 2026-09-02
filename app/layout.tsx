@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, Fraunces, Nunito_Sans } from "next/font/google";
 import "./globals.css";
-import { SITE, HOURS_SCHEMA, AREAS, MENU } from "@/lib/site";
+import { SITE, HOURS_SCHEMA, AREAS, MENU, PRICE_RANGE, lowestPrice } from "@/lib/site";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileDock from "@/components/MobileDock";
@@ -68,7 +68,7 @@ function JsonLd() {
     email: SITE.email,
     image: `${SITE.domain}/images/duo.jpg`,
     logo: `${SITE.domain}/images/logo.png`,
-    priceRange: "$10 - $235",
+    priceRange: PRICE_RANGE,
     slogan: "Come as you are & let us make you a star",
     address: {
       "@type": "PostalAddress",
@@ -97,7 +97,7 @@ function JsonLd() {
         itemListElement: s.items.map((i) => ({
           "@type": "Offer",
           itemOffered: { "@type": "Service", name: i.name },
-          price: i.price.replace(/[^0-9.]/g, ""),
+          price: lowestPrice(i),
           priceCurrency: "USD",
         })),
       })),

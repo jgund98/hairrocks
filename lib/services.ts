@@ -21,9 +21,9 @@ const bySlug = Object.fromEntries(MENU.map((s) => [s.slug, s]));
 export const SERVICE_PAGES: ServicePage[] = [
   {
     slug: "haircuts",
-    seoTitle: "Haircuts in Boynton Beach, FL — Women, Men & Kids from $25",
+    seoTitle: "Haircuts in Boynton Beach, FL — Women, Men & Kids from $22",
     seoDesc:
-      "Precision haircuts in Boynton Beach at Hair Rocks @Artisans. Women's cut & blow-dry $60, men's cuts $35, kids $25. Consultation first, always. Book online.",
+      "Precision haircuts in Boynton Beach at Hair Rocks @Artisans. Women's cut & blow-dry from $60, men's cuts from $35, kids from $25. Consultation first, always. Book online.",
     eyebrow: "Haircuts",
     h1a: "A cut that grows",
     h1b: "out gracefully.",
@@ -46,7 +46,7 @@ export const SERVICE_PAGES: ServicePage[] = [
     faqs: [
       {
         q: "How much is a haircut at Hair Rocks in Boynton Beach?",
-        a: "A women's haircut with blow-dry is $60, a wet cut is $45, men's haircuts are $35, and kids' cuts are $25. Prices are published upfront — no surprises at checkout.",
+        a: "It depends on your stylist's level (Designer, Senior, or Master). A women's haircut with blow-dry is $60–$65, a haircut only is $45–$50, men's haircuts are $35–$40, all-over clipper cuts $22–$25, and kids' cuts start at $25. Every price is published upfront — no surprises at checkout.",
       },
       {
         q: "Do I need an appointment, or do you take walk-ins?",
@@ -62,7 +62,7 @@ export const SERVICE_PAGES: ServicePage[] = [
     slug: "color",
     seoTitle: "Hair Color & Balayage in Boynton Beach, FL — Clean OYA Color",
     seoDesc:
-      "Balayage, highlights, gray coverage & color correction in Boynton Beach. OYA color free of parabens, PPD & 4-ABP. Base color $70, balayage from $165. Book online.",
+      "Balayage, highlights, gray coverage & color correction in Boynton Beach. OYA color free of parabens, PPD & 4-ABP. Base color from $70, balayage from $165. Book online.",
     eyebrow: "Hair color",
     h1a: "Color that looks",
     h1b: "born, not bottled.",
@@ -93,11 +93,11 @@ export const SERVICE_PAGES: ServicePage[] = [
       },
       {
         q: "How much does balayage cost in Boynton Beach?",
-        a: "Balayage at Hair Rocks starts at $165. Partial highlights run $60–$85, full highlights are $115, and an all-over base color is $70. Toner and gloss finishes are $30.",
+        a: "Balayage at Hair Rocks starts at $165 (from $175 with a Master stylist). Partial highlights run $55–$105 depending on how much you want lightened and your stylist's level, full highlights are $115–$120, and an all-over base color is $70–$75. Toners and glosses are $30–$50, and color services include a blow-dry.",
       },
       {
         q: "Can you fix a color job I got somewhere else?",
-        a: "That's what color correction is for — from $150 depending on what your hair needs. Tiffany is a certified color specialist and will map out a realistic plan before anything is applied.",
+        a: "That's what color correction is for — from $125 depending on your stylist's level and what your hair needs. Tiffany is a certified color specialist and will map out a realistic plan before anything is applied.",
       },
       {
         q: "How often should I refresh my color?",
@@ -109,7 +109,7 @@ export const SERVICE_PAGES: ServicePage[] = [
     slug: "styling",
     seoTitle: "Blowouts, Styling & Hair Treatments in Boynton Beach, FL",
     seoDesc:
-      "Blowouts, special-occasion styling, deep conditioning & clarifying treatments in Boynton Beach. Blow-dry $35, treatments from $25. Book online at Hair Rocks.",
+      "Blowouts, up-dos, deep conditioning & clarifying treatments in Boynton Beach. Blow-dry from $35, up-dos from $70, treatments from $25. Book online at Hair Rocks.",
     eyebrow: "Styling & treatments",
     h1a: "Great hair days,",
     h1b: "on demand.",
@@ -118,11 +118,11 @@ export const SERVICE_PAGES: ServicePage[] = [
     body: [
       {
         heading: "Blowouts & occasions",
-        text: "Smooth, bouncy, or beachy — a $35 blow-dry that holds up in Florida humidity. Heading somewhere special? Tell us when you book and we'll build in the time.",
+        text: "Smooth, bouncy, or beachy — a blow-dry (from $35, or from $45 blown straight) that holds up in Florida humidity. Heading somewhere special? Designer up-dos start at $70; tell us the occasion when you book and we'll build in the time.",
       },
       {
         heading: "Deep repair",
-        text: "Deep conditioning rebuilds softness and shine; a clarifying treatment strips buildup from hard water, chlorine, and product. Add either to a color visit and it's just $10–$15.",
+        text: "Deep conditioning ($25) rebuilds softness and shine; a clarifying treatment ($30) strips buildup from hard water, chlorine, and product. Either one slots neatly into a cut or color visit.",
       },
     ],
     img: "/images/blowdry.jpg",
@@ -136,11 +136,11 @@ export const SERVICE_PAGES: ServicePage[] = [
       },
       {
         q: "Which treatment does my hair need?",
-        a: "If hair feels dry or brittle, deep conditioning ($25, or $10 with color) restores moisture. If it feels coated, dull, or heavy, clarifying ($30, or $15 with color) resets it. Not sure? We'll tell you honestly.",
+        a: "If hair feels dry or brittle, deep conditioning ($25) restores moisture. If it feels coated, dull, or heavy, clarifying ($30) resets it. Both cost the same at every stylist level. Not sure? We'll tell you honestly.",
       },
       {
         q: "Do you do styling for weddings or events?",
-        a: "Yes — book a blow-dry and note the occasion. For updos and formal styling, call (561) 964-0120 so we can plan timing and pricing for exactly what you have in mind.",
+        a: "Yes — a designer up-do starts at $70 (up to $90+ with a Master stylist), and an iron set is $10–$15. Call (561) 964-0120 so we can plan timing for exactly what you have in mind.",
       },
     ],
   },
@@ -148,7 +148,7 @@ export const SERVICE_PAGES: ServicePage[] = [
     slug: "perms-keratin",
     seoTitle: "Perms & Keratin Treatments in Boynton Beach, FL",
     seoDesc:
-      "Modern perms from $90 and smoothing keratin treatments ($235) in Boynton Beach. Lasting waves or months of frizz-free hair — book online at Hair Rocks @Artisans.",
+      "Modern perms from $90 and formaldehyde-free keratin treatments from $235 in Boynton Beach. Lasting waves or months of frizz-free hair — book online at Hair Rocks @Artisans.",
     eyebrow: "Perms & keratin",
     h1a: "Texture, either",
     h1b: "direction.",
@@ -161,7 +161,7 @@ export const SERVICE_PAGES: ServicePage[] = [
       },
       {
         heading: "Keratin smoothing",
-        text: "One $235 appointment, then months of faster mornings: frizz tamed, shine up, blow-dry time cut dramatically. The August-in-Florida cheat code.",
+        text: "One formaldehyde-free treatment (from $235), then months of faster mornings: frizz tamed, shine up, blow-dry time cut dramatically. The August-in-Florida cheat code.",
       },
     ],
     img: "/images/perm-curls.jpg",
@@ -187,7 +187,7 @@ export const SERVICE_PAGES: ServicePage[] = [
     slug: "waxing",
     seoTitle: "Facial Waxing in Boynton Beach, FL — Brow, Lip & Chin from $10",
     seoDesc:
-      "Quick, tidy facial waxing in Boynton Beach: eyebrows $10, lip $10, chin $10, full facial $30. Easy to add to any hair appointment at Hair Rocks @Artisans.",
+      "Quick, tidy facial waxing in Boynton Beach: eyebrows from $10, between the brows $5, lip from $10, chin $10, full facial from $30. Easy to add to any hair appointment at Hair Rocks @Artisans.",
     eyebrow: "Facial waxing",
     h1a: "Tidy, quick,",
     h1b: "done right.",
@@ -196,7 +196,7 @@ export const SERVICE_PAGES: ServicePage[] = [
     body: [
       {
         heading: "Add it on",
-        text: "Brow, lip, and chin waxes are $10 each and slot neatly into any cut or color visit. A full facial wax is $30. Just mention it when you book, or ask at the chair.",
+        text: "Brow, lip, and chin waxes start at $10 each (just between the brows is $5) and slot neatly into any cut or color visit. A full facial wax starts at $30. Just mention it when you book, or ask at the chair.",
       },
     ],
     img: "/images/brow.jpg",
@@ -210,7 +210,7 @@ export const SERVICE_PAGES: ServicePage[] = [
       },
       {
         q: "How much is eyebrow waxing?",
-        a: "Eyebrow waxing is $10, and so are lip and chin. A full facial wax is $30. Add any of them to a cut or color without a separate trip.",
+        a: "Eyebrow waxing is $10–$15 depending on your stylist's level, lip is $10–$12, chin is $10, and a quick between-the-brows tidy is $5. A full facial wax is $30–$35. Add any of them to a cut or color without a separate trip.",
       },
     ],
   },

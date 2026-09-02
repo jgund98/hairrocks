@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { SITE, MENU, PACKAGES, REVIEWS, OYA_FREE_OF, HOURS } from "@/lib/site";
+import { SITE, MENU, PACKAGES, REVIEWS, OYA_FREE_OF, HOURS, fromPrice } from "@/lib/site";
+import MenuList from "@/components/MenuList";
 import HomeHero from "@/components/HomeHero";
 import TownsMarquee from "@/components/TownsMarquee";
 import ServicesMarquee from "@/components/ServicesMarquee";
@@ -18,11 +19,11 @@ export const metadata: Metadata = {
 };
 
 const SERVICE_LINKS = [
-  { section: MENU[0], img: "/images/haircut.jpg", from: "$25" },
-  { section: MENU[3], img: "/images/honey.webp", from: "$30" },
-  { section: MENU[1], img: "/images/blowdry.jpg", from: "$25" },
-  { section: MENU[4], img: "/images/perm-curls.jpg", from: "$90" },
-  { section: MENU[2], img: "/images/brow.jpg", from: "$10" },
+  { section: MENU[0], img: "/images/haircut.jpg" },
+  { section: MENU[3], img: "/images/honey.webp" },
+  { section: MENU[1], img: "/images/blowdry.jpg" },
+  { section: MENU[4], img: "/images/perm-curls.jpg" },
+  { section: MENU[2], img: "/images/brow.jpg" },
 ];
 
 export default function Home() {
@@ -65,15 +66,7 @@ export default function Home() {
                 <p className="relative text-[13px] font-extrabold uppercase tracking-[0.2em] text-leaf-bright">
                   Bundle &amp; save
                 </p>
-                <ul className="relative mt-4 space-y-3.5">
-                  {PACKAGES.map((p) => (
-                    <li key={p.name} className="flex items-baseline gap-3">
-                      <span className="font-display text-lg font-bold">{p.name}</span>
-                      <span aria-hidden className="min-w-6 flex-1 border-b-2 border-dotted border-cream/25" />
-                      <span className="font-display text-lg font-extrabold text-leaf-bright">{p.price}</span>
-                    </li>
-                  ))}
-                </ul>
+                <MenuList items={PACKAGES} dark className="relative mt-4" />
                 <p className="relative mt-4 text-sm text-cream/65">
                   Cut, color &amp; treatment in one visit — the full&nbsp;transformation.
                 </p>
@@ -82,7 +75,7 @@ export default function Home() {
           </div>
 
           <div className="flex flex-col justify-center">
-            {SERVICE_LINKS.map(({ section, img, from }, i) => (
+            {SERVICE_LINKS.map(({ section, img }, i) => (
               <Reveal key={section.slug} delay={i * 0.06}>
                 <Link
                   href={`/services/${section.slug}/`}
@@ -103,7 +96,7 @@ export default function Home() {
                         {section.title}
                       </span>
                       <span className="rounded-full bg-blush px-2.5 py-0.5 text-[13px] font-extrabold text-rose-deep">
-                        from {from}
+                        from {fromPrice(section)}
                       </span>
                     </span>
                     <span className="mt-1 block max-w-md text-[15px] leading-snug text-ink-soft">

@@ -58,7 +58,24 @@ export const AREAS = [
   "Briny Breezes",
 ] as const;
 
-export type MenuItem = { name: string; price: string; note?: string };
+// Three stylist levels, three price columns — straight from Tiffany's 2026
+// price menu (PriceMenuHairRocks-2026.xlsx: Designer / Senior / Master sheets).
+export const TIERS = [
+  { key: "designer", label: "Designer" },
+  { key: "senior", label: "Senior" },
+  { key: "master", label: "Master" },
+] as const;
+export type TierKey = (typeof TIERS)[number]["key"];
+
+/** prices = [Designer, Senior, Master]; `plus` = "and up" / "starting at";
+ *  `addon` = a small extra, not a "from" price for the section. */
+export type MenuItem = {
+  name: string;
+  prices: readonly [number, number, number];
+  plus?: boolean;
+  addon?: boolean;
+  note?: string;
+};
 export type MenuSection = {
   slug: string;
   title: string;
@@ -66,28 +83,46 @@ export type MenuSection = {
   items: MenuItem[];
 };
 
-// Exact menu + prices from hairrocksstudio.com/services, original order preserved
-// (Haircuts → Styling → Waxing → Color → Perms → Keratin → Packages).
+export const fmtPrice = (n: number, plus?: boolean) => `$${n}${plus ? "+" : ""}`;
+export const lowestPrice = (item: MenuItem) => Math.min(...item.prices);
+export const highestPrice = (item: MenuItem) => Math.max(...item.prices);
+/** "$60" if every level charges the same, otherwise "$60–$65". */
+export const priceSpan = (item: MenuItem) => {
+  const lo = lowestPrice(item);
+  const hi = highestPrice(item);
+  return lo === hi ? fmtPrice(lo, item.plus) : `${fmtPrice(lo)}–${fmtPrice(hi, item.plus)}`;
+};
+/** Cheapest real service in a section (add-ons like a bang trim excluded), e.g. "$22". */
+export const fromPrice = (section: MenuSection) =>
+  fmtPrice(Math.min(...section.items.filter((i) => !i.addon).map(lowestPrice)));
+
+// Menu order follows the printed price menu (Haircuts → Styling → Waxing →
+// Color → Perms & Keratin), then length charges and packages.
 export const MENU: MenuSection[] = [
   {
     slug: "haircuts",
     title: "Haircuts",
     blurb: "Precision cuts for women, men, and kids — always with a consultation first.",
     items: [
-      { name: "Haircut & Blow-Dry", price: "$60" },
-      { name: "Men's Haircut", price: "$35" },
-      { name: "Wet Cut", price: "$45" },
-      { name: "Kid's Cut", price: "$25" },
+      { name: "Haircut & Blow-Dry", prices: [60, 65, 65] },
+      { name: "Haircut Only", prices: [45, 50, 50] },
+      { name: "Men's Haircut", prices: [35, 40, 40] },
+      { name: "Clipper Cut · All Over", prices: [22, 25, 25] },
+      { name: "Bang Trim", prices: [7, 10, 7], addon: true },
+      { name: "Kid's Cut", prices: [25, 30, 35], plus: true, note: "Starting at" },
     ],
   },
   {
     slug: "styling",
     title: "Styling & Treatments",
-    blurb: "Blowouts, updos, and deep repair for hair that behaves between visits.",
+    blurb: "Blowouts, up-dos, and deep repair for hair that behaves between visits.",
     items: [
-      { name: "Blow-Dry", price: "$35" },
-      { name: "Deep Conditioning", price: "$25", note: "$10 with color service" },
-      { name: "Clarifying Treatment", price: "$30", note: "$15 with color service" },
+      { name: "Iron Set", prices: [10, 15, 15], addon: true },
+      { name: "Blow-Dry", prices: [35, 40, 35] },
+      { name: "Blow-Dry Straight", prices: [45, 55, 45] },
+      { name: "Designer Up-Do", prices: [70, 85, 90], plus: true },
+      { name: "Deep Conditioning", prices: [25, 25, 25] },
+      { name: "Clarifying Treatment", prices: [30, 30, 30] },
     ],
   },
   {
@@ -95,26 +130,32 @@ export const MENU: MenuSection[] = [
     title: "Waxing",
     blurb: "Quick, tidy facial waxing — easy to add on to any appointment.",
     items: [
-      { name: "Eyebrow", price: "$10" },
-      { name: "Lip", price: "$10" },
-      { name: "Chin", price: "$10" },
-      { name: "Facial", price: "$30" },
+      { name: "Eyebrow", prices: [10, 15, 10] },
+      { name: "Between the Brows", prices: [5, 5, 5], addon: true },
+      { name: "Lip", prices: [10, 12, 10] },
+      { name: "Chin", prices: [10, 10, 10] },
+      { name: "Facial", prices: [30, 33, 35] },
     ],
   },
   {
     slug: "color",
     title: "Hair Color",
-    blurb: "From gray coverage to hand-painted balayage — clean OYA color, placed with intent.",
+    blurb:
+      "From gray coverage to hand-painted balayage — clean OYA color, placed with intent. Color services include a blow-dry.",
     items: [
-      { name: "Base Color", price: "$70" },
-      { name: "Root Smudge", price: "$55" },
-      { name: "Toner & Gloss", price: "$30" },
-      { name: "Men's Camo", price: "$30" },
-      { name: "Partial Highlight · Face Frame", price: "$60" },
-      { name: "Partial Highlight · Half Head", price: "$85" },
-      { name: "Full Highlight", price: "$115" },
-      { name: "Balayage", price: "$165+" },
-      { name: "Color Correction", price: "$150+" },
+      { name: "Men's Camo", prices: [30, 35, 35] },
+      { name: "Base Color", prices: [70, 75, 70] },
+      { name: "Roots / Hairline Only", prices: [35, 35, 35], note: "No blow-dry" },
+      { name: "Additional Color", prices: [35, 35, 35] },
+      { name: "Wet Toner", prices: [35, 30, 35] },
+      { name: "Dry Toner", prices: [50, 45, 50] },
+      { name: "Clear Gloss", prices: [35, 30, 35] },
+      { name: "Partial Highlight · Face Frame", prices: [60, 55, 65] },
+      { name: "Partial Highlight · Half Head", prices: [85, 90, 90] },
+      { name: "Partial Highlight · ¾ Head", prices: [100, 105, 105] },
+      { name: "Full Highlight", prices: [115, 120, 120] },
+      { name: "Balayage", prices: [165, 165, 175], plus: true },
+      { name: "Color Correction", prices: [150, 125, 150], plus: true },
     ],
   },
   {
@@ -122,17 +163,30 @@ export const MENU: MenuSection[] = [
     title: "Perms & Keratin",
     blurb: "Lasting texture either direction — soft waves in, or frizz smoothed away for months.",
     items: [
-      { name: "Traditional Perm", price: "$90" },
-      { name: "Specialty Wrap Perm", price: "$110+" },
-      { name: "Keratin Treatment", price: "$235" },
+      { name: "Traditional Perm", prices: [90, 90, 90] },
+      { name: "Specialty Wrap Perm", prices: [110, 120, 110], plus: true },
+      { name: "Keratin Treatment", prices: [235, 250, 235], plus: true, note: "Formaldehyde-free" },
     ],
   },
 ];
 
-export const PACKAGES: MenuItem[] = [
-  { name: "Cut, Color & Treatment", price: "$120" },
-  { name: "Cut, Color, Highlight & Treatment", price: "$230" },
+// Same at every stylist level.
+export const LENGTH_CHARGES: MenuItem[] = [
+  { name: '1" to Mid-Back', prices: [10, 10, 10] },
+  { name: "Mid-Back and Longer", prices: [20, 20, 20] },
+  { name: "Thickness", prices: [10, 10, 10], note: "When applicable" },
 ];
+
+export const PACKAGES: MenuItem[] = [
+  { name: "Cut, Color & Treatment", prices: [130, 140, 130] },
+  { name: "Cut, Color, Highlight & Treatment", prices: [245, 260, 260] },
+];
+
+const ALL_ITEMS = [...MENU.flatMap((s) => s.items), ...LENGTH_CHARGES, ...PACKAGES];
+/** Schema.org priceRange, e.g. "$5 - $260". */
+export const PRICE_RANGE = `${fmtPrice(Math.min(...ALL_ITEMS.map(lowestPrice)))} - ${fmtPrice(
+  Math.max(...ALL_ITEMS.map(highestPrice)),
+)}`;
 
 // Real, recent Google reviews (via the salon's public review profiles). Verbatim.
 export const REVIEWS = [
