@@ -21,9 +21,9 @@ const bySlug = Object.fromEntries(MENU.map((s) => [s.slug, s]));
 export const SERVICE_PAGES: ServicePage[] = [
   {
     slug: "haircuts",
-    seoTitle: "Haircuts in Boynton Beach, FL — Women, Men & Kids from $22",
+    seoTitle: "Haircuts in Boynton Beach, FL — Women, Men & Kids from $35",
     seoDesc:
-      "Precision haircuts in Boynton Beach at Hair Rocks @Artisans. Women's cut & blow-dry from $60, men's cuts from $35, kids from $25. Consultation first, always. Book online.",
+      "Precision haircuts in Boynton Beach at Hair Rocks @Artisans. Women's cut & blow-dry from $60, men's cuts from $35, kids' cuts too. Consultation first, always. Book online.",
     eyebrow: "Haircuts",
     h1a: "A cut that grows",
     h1b: "out gracefully.",

@@ -81,6 +81,8 @@ export type MenuSection = {
   title: string;
   blurb: string;
   items: MenuItem[];
+  /** Advertised "from" price when the cheapest line would mislead (e.g. a clipper cut or a kids' starting-at price). */
+  from?: number;
 };
 
 export const fmtPrice = (n: number, plus?: boolean) => `$${n}${plus ? "+" : ""}`;
@@ -92,9 +94,10 @@ export const priceSpan = (item: MenuItem) => {
   const hi = highestPrice(item);
   return lo === hi ? fmtPrice(lo, item.plus) : `${fmtPrice(lo)}–${fmtPrice(hi, item.plus)}`;
 };
-/** Cheapest real service in a section (add-ons like a bang trim excluded), e.g. "$22". */
+/** Advertised "from" price: the section's explicit override, else the cheapest
+ *  regular service (add-ons like a bang trim excluded). */
 export const fromPrice = (section: MenuSection) =>
-  fmtPrice(Math.min(...section.items.filter((i) => !i.addon).map(lowestPrice)));
+  fmtPrice(section.from ?? Math.min(...section.items.filter((i) => !i.addon).map(lowestPrice)));
 
 // Menu order follows the printed price menu (Haircuts → Styling → Waxing →
 // Color → Perms & Keratin), then length charges and packages.
@@ -103,6 +106,8 @@ export const MENU: MenuSection[] = [
     slug: "haircuts",
     title: "Haircuts",
     blurb: "Precision cuts for women, men, and kids — always with a consultation first.",
+    // Tiffany: advertise from the men's cut, not the clipper cut or the kids' starting-at price.
+    from: 35,
     items: [
       { name: "Haircut & Blow-Dry", prices: [60, 65, 65] },
       { name: "Haircut Only", prices: [45, 50, 50] },

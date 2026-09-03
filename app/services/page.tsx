@@ -10,7 +10,7 @@ import { BookButton, CallChip, Swish } from "@/components/ui";
 export const metadata: Metadata = {
   title: "Salon Services & Prices — Cuts, Color, Perms, Keratin & Waxing",
   description:
-    "The full Hair Rocks @Artisans 2026 price list by stylist level: haircuts from $22, OYA color from $30, balayage $165+, perms $90, keratin $235+, facial waxing from $10. Boynton Beach, FL.",
+    "The full Hair Rocks @Artisans 2026 price list by stylist level: haircuts from $35, OYA color from $30, balayage $165+, perms $90, keratin $235+, facial waxing from $10. Boynton Beach, FL.",
   alternates: { canonical: "/services/" },
 };
 

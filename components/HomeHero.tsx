@@ -181,7 +181,7 @@ export default function HomeHero() {
           Balayage · from $165
         </Sticker>
         <Sticker tone="lime" tilt="-6deg" delay={0.8} className="-left-2 bottom-[22%] sm:-left-7">
-          Cuts · from $22
+          Cuts · from $35
         </Sticker>
 
         {/* Spinning stamp — bottom right, overlapping the arch edge */}
