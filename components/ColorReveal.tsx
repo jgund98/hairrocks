@@ -112,11 +112,18 @@ export default function ColorReveal({
         <img src={src} alt={alt} className="block w-full select-none" draggable={false} />
         <canvas
           ref={canvasRef}
-          className="absolute inset-0 h-full w-full cursor-crosshair [touch-action:pan-y]"
+          /* touch-action:none — the finger paints, it never scrolls the page.
+             With pan-y the browser stole vertical drags and fired pointercancel,
+             so strokes died and the page jerked instead. */
+          className="absolute inset-0 h-full w-full cursor-crosshair select-none [touch-action:none] [-webkit-touch-callout:none]"
           onPointerDown={(e) => {
             drawing.current = true;
             setTouched(true);
             last.current = null;
+            // keep receiving moves even if the finger drifts off the photo mid-stroke
+            try {
+              e.currentTarget.setPointerCapture(e.pointerId);
+            } catch {}
             const p = pos(e);
             stroke(p.x, p.y);
           }}
@@ -128,13 +135,19 @@ export default function ColorReveal({
               stroke(p.x, p.y);
             }
           }}
-          onPointerUp={() => {
+          onPointerUp={(e) => {
             drawing.current = false;
             last.current = null;
+            try {
+              e.currentTarget.releasePointerCapture(e.pointerId);
+            } catch {}
           }}
-          onPointerLeave={() => {
-            drawing.current = false;
-            last.current = null;
+          onPointerLeave={(e) => {
+            // mouse hover-painting ends at the edge; a captured touch stroke does not
+            if (e.pointerType === "mouse") {
+              drawing.current = false;
+              last.current = null;
+            }
           }}
           onPointerCancel={() => {
             drawing.current = false;
