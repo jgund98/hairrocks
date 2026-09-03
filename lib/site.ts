@@ -58,8 +58,11 @@ export const AREAS = [
   "Briny Breezes",
 ] as const;
 
-// Three stylist levels, three price columns — straight from Tiffany's 2026
-// price menu (PriceMenuHairRocks-2026.xlsx: Designer / Senior / Master sheets).
+// Prices from Tiffany's 2026 price menu (PriceMenuHairRocks-2026.xlsx). The
+// workbook has Designer / Senior / Master sheets; per Tiffany (2026-09-03) the
+// site LISTS ONLY THE DESIGNER PRICE, framed as "starting at" — she is the
+// Master stylist, has no Senior, and doesn't always charge more. The other two
+// columns are kept in data for reference but never rendered.
 export const TIERS = [
   { key: "designer", label: "Designer" },
   { key: "senior", label: "Senior" },
@@ -86,18 +89,12 @@ export type MenuSection = {
 };
 
 export const fmtPrice = (n: number, plus?: boolean) => `$${n}${plus ? "+" : ""}`;
-export const lowestPrice = (item: MenuItem) => Math.min(...item.prices);
-export const highestPrice = (item: MenuItem) => Math.max(...item.prices);
-/** "$60" if every level charges the same, otherwise "$60–$65". */
-export const priceSpan = (item: MenuItem) => {
-  const lo = lowestPrice(item);
-  const hi = highestPrice(item);
-  return lo === hi ? fmtPrice(lo, item.plus) : `${fmtPrice(lo)}–${fmtPrice(hi, item.plus)}`;
-};
+/** The price we publish: the Designer column, always a starting point. */
+export const listPrice = (item: MenuItem) => item.prices[0];
 /** Advertised "from" price: the section's explicit override, else the cheapest
  *  regular service (add-ons like a bang trim excluded). */
 export const fromPrice = (section: MenuSection) =>
-  fmtPrice(section.from ?? Math.min(...section.items.filter((i) => !i.addon).map(lowestPrice)));
+  fmtPrice(section.from ?? Math.min(...section.items.filter((i) => !i.addon).map(listPrice)));
 
 // Menu order follows the printed price menu (Haircuts → Styling → Waxing →
 // Color → Perms & Keratin), then length charges and packages.
@@ -114,7 +111,7 @@ export const MENU: MenuSection[] = [
       { name: "Men's Haircut", prices: [35, 40, 40] },
       { name: "Clipper Cut · All Over", prices: [22, 25, 25] },
       { name: "Bang Trim", prices: [7, 10, 7], addon: true },
-      { name: "Kid's Cut", prices: [25, 30, 35], plus: true, note: "Starting at" },
+      { name: "Kid's Cut", prices: [25, 30, 35], plus: true },
     ],
   },
   {
@@ -189,8 +186,8 @@ export const PACKAGES: MenuItem[] = [
 
 const ALL_ITEMS = [...MENU.flatMap((s) => s.items), ...LENGTH_CHARGES, ...PACKAGES];
 /** Schema.org priceRange, e.g. "$5 - $260". */
-export const PRICE_RANGE = `${fmtPrice(Math.min(...ALL_ITEMS.map(lowestPrice)))} - ${fmtPrice(
-  Math.max(...ALL_ITEMS.map(highestPrice)),
+export const PRICE_RANGE = `${fmtPrice(Math.min(...ALL_ITEMS.map(listPrice)))} - ${fmtPrice(
+  Math.max(...ALL_ITEMS.map(listPrice)),
 )}`;
 
 // Real, recent Google reviews (via the salon's public review profiles). Verbatim.

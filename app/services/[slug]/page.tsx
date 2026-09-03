@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { SITE, lowestPrice } from "@/lib/site";
+import { SITE, listPrice } from "@/lib/site";
 import { SERVICE_PAGES, getMenuSection, getServicePage } from "@/lib/services";
 import PageHero from "@/components/PageHero";
 import MenuList from "@/components/MenuList";
@@ -54,7 +54,7 @@ export default async function ServiceDetail({
       offers: menu.items.map((i) => ({
         "@type": "Offer",
         name: i.name,
-        price: lowestPrice(i),
+        price: listPrice(i),
         priceCurrency: "USD",
       })),
     },

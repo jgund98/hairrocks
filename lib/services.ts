@@ -46,7 +46,7 @@ export const SERVICE_PAGES: ServicePage[] = [
     faqs: [
       {
         q: "How much is a haircut at Hair Rocks in Boynton Beach?",
-        a: "It depends on your stylist's level (Designer, Senior, or Master). A women's haircut with blow-dry is $60–$65, a haircut only is $45–$50, men's haircuts are $35–$40, all-over clipper cuts $22–$25, and kids' cuts start at $25. Every price is published upfront — no surprises at checkout.",
+        a: "A women's haircut with blow-dry starts at $60, a haircut only at $45, men's haircuts at $35, all-over clipper cuts at $22, and kids' cuts at $25. Every price is a starting point, published upfront and confirmed at your consultation — no surprises at checkout.",
       },
       {
         q: "Do I need an appointment, or do you take walk-ins?",
@@ -93,11 +93,11 @@ export const SERVICE_PAGES: ServicePage[] = [
       },
       {
         q: "How much does balayage cost in Boynton Beach?",
-        a: "Balayage at Hair Rocks starts at $165 (from $175 with a Master stylist). Partial highlights run $55–$105 depending on how much you want lightened and your stylist's level, full highlights are $115–$120, and an all-over base color is $70–$75. Toners and glosses are $30–$50, and color services include a blow-dry.",
+        a: "Balayage at Hair Rocks starts at $165. Partial highlights start at $60 for face-framing, $85 for a half head, and $100 for three-quarters; full highlights start at $115, and an all-over base color at $70. Toners and glosses start at $35, and color services include a blow-dry.",
       },
       {
         q: "Can you fix a color job I got somewhere else?",
-        a: "That's what color correction is for — from $125 depending on your stylist's level and what your hair needs. Tiffany is a certified color specialist and will map out a realistic plan before anything is applied.",
+        a: "That's what color correction is for — from $150 depending on what your hair needs. Tiffany is a certified color specialist and will map out a realistic plan before anything is applied.",
       },
       {
         q: "How often should I refresh my color?",
@@ -136,11 +136,11 @@ export const SERVICE_PAGES: ServicePage[] = [
       },
       {
         q: "Which treatment does my hair need?",
-        a: "If hair feels dry or brittle, deep conditioning ($25) restores moisture. If it feels coated, dull, or heavy, clarifying ($30) resets it. Both cost the same at every stylist level. Not sure? We'll tell you honestly.",
+        a: "If hair feels dry or brittle, deep conditioning ($25) restores moisture. If it feels coated, dull, or heavy, clarifying ($30) resets it. Not sure? We'll tell you honestly.",
       },
       {
         q: "Do you do styling for weddings or events?",
-        a: "Yes — a designer up-do starts at $70 (up to $90+ with a Master stylist), and an iron set is $10–$15. Call (561) 964-0120 so we can plan timing for exactly what you have in mind.",
+        a: "Yes — a designer up-do starts at $70, and an iron set starts at $10. Call (561) 964-0120 so we can plan timing for exactly what you have in mind.",
       },
     ],
   },
@@ -210,7 +210,7 @@ export const SERVICE_PAGES: ServicePage[] = [
       },
       {
         q: "How much is eyebrow waxing?",
-        a: "Eyebrow waxing is $10–$15 depending on your stylist's level, lip is $10–$12, chin is $10, and a quick between-the-brows tidy is $5. A full facial wax is $30–$35. Add any of them to a cut or color without a separate trip.",
+        a: "Eyebrow, lip, and chin waxing each start at $10, and a quick between-the-brows tidy is $5. A full facial wax starts at $30. Add any of them to a cut or color without a separate trip.",
       },
     ],
   },

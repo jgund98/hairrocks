@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { MENU, PACKAGES, LENGTH_CHARGES, SITE, TIERS } from "@/lib/site";
+import { MENU, PACKAGES, LENGTH_CHARGES, SITE } from "@/lib/site";
 import PageHero from "@/components/PageHero";
 import MenuList from "@/components/MenuList";
 import Reveal from "@/components/Reveal";
@@ -10,7 +10,7 @@ import { BookButton, CallChip, Swish } from "@/components/ui";
 export const metadata: Metadata = {
   title: "Salon Services & Prices — Cuts, Color, Perms, Keratin & Waxing",
   description:
-    "The full Hair Rocks @Artisans 2026 price list by stylist level: haircuts from $35, OYA color from $30, balayage $165+, perms $90, keratin $235+, facial waxing from $10. Boynton Beach, FL.",
+    "The full Hair Rocks @Artisans 2026 price list, starting at: haircuts from $35, OYA color from $30, balayage $165+, perms $90, keratin $235+, facial waxing from $10. Boynton Beach, FL.",
   alternates: { canonical: "/services/" },
 };
 
@@ -44,8 +44,8 @@ export default function ServicesPage() {
           <p>
             The whole menu, published like it should be. Cuts, clean OYA color,
             perms, keratin, and waxing — in the same order the studio has always
-            offered them. Three price columns, one for each stylist level:{" "}
-            {TIERS.map((t) => t.label).join(", ")}. Tap any section for details
+            offered them. Every price is a starting point — your stylist confirms
+            the exact number at your consultation. Tap any section for details
             and&nbsp;FAQs.
           </p>
         }
@@ -98,9 +98,9 @@ export default function ServicesPage() {
                   Length &amp; thickness
                 </h2>
                 <p className="relative mt-2 max-w-lg text-[15px] text-cream/70">
-                  Added to color, treatments, and styling when your hair calls for it — the same at every level.
+                  Added to color, treatments, and styling when your hair calls for it.
                 </p>
-                <MenuList items={LENGTH_CHARGES} dark tiers={false} className="relative mt-5" />
+                <MenuList items={LENGTH_CHARGES} dark startingAt={false} className="relative mt-5" />
                 <div className="relative mt-auto pt-8">
                   <BookButton dark label="Book a Package" />
                 </div>
@@ -109,10 +109,9 @@ export default function ServicesPage() {
           </div>
 
           <p className="mt-14 max-w-2xl text-sm leading-relaxed text-ink-soft">
-            Prices are listed by stylist level — Designer, Senior, and Master —
-            and may vary with hair length and thickness (see length charges).
-            Your stylist confirms everything during the consultation, before any
-            work begins. Questions? Call{" "}
+            All prices are starting points and may vary with hair length and
+            thickness (see length charges). Your stylist confirms everything
+            during the consultation, before any work begins. Questions? Call{" "}
             <a href={SITE.phoneHref} className="font-bold text-moss">
               {SITE.phone}
             </a>

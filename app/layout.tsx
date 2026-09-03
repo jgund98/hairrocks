@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, Fraunces, Nunito_Sans } from "next/font/google";
 import "./globals.css";
-import { SITE, HOURS_SCHEMA, AREAS, MENU, PRICE_RANGE, lowestPrice } from "@/lib/site";
+import { SITE, HOURS_SCHEMA, AREAS, MENU, PRICE_RANGE, listPrice } from "@/lib/site";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileDock from "@/components/MobileDock";
@@ -97,7 +97,7 @@ function JsonLd() {
         itemListElement: s.items.map((i) => ({
           "@type": "Offer",
           itemOffered: { "@type": "Service", name: i.name },
-          price: lowestPrice(i),
+          price: listPrice(i),
           priceCurrency: "USD",
         })),
       })),
