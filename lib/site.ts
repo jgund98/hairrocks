@@ -28,7 +28,7 @@ export const SITE = {
 
 export const HOURS = [
   { day: "Monday", hours: "Appointment only" },
-  { day: "Tuesday", hours: "10 AM – 6 PM" },
+  { day: "Tuesday", hours: "11 AM – 7 PM" },
   { day: "Wednesday", hours: "10 AM – 6 PM" },
   { day: "Thursday", hours: "10 AM – 6 PM" },
   { day: "Friday", hours: "10 AM – 5 PM" },
@@ -38,7 +38,8 @@ export const HOURS = [
 
 // Schema.org openingHoursSpecification
 export const HOURS_SCHEMA = [
-  { "@type": "OpeningHoursSpecification", dayOfWeek: ["Tuesday", "Wednesday", "Thursday"], opens: "10:00", closes: "18:00" },
+  { "@type": "OpeningHoursSpecification", dayOfWeek: ["Tuesday"], opens: "11:00", closes: "19:00" },
+  { "@type": "OpeningHoursSpecification", dayOfWeek: ["Wednesday", "Thursday"], opens: "10:00", closes: "18:00" },
   { "@type": "OpeningHoursSpecification", dayOfWeek: ["Friday", "Saturday"], opens: "10:00", closes: "17:00" },
 ];
 

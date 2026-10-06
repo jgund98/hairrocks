@@ -57,9 +57,9 @@ export default function Footer() {
               </a>
             </address>
             <ul className="mt-5 space-y-1.5 text-sm text-cream/70">
-              {HOURS.filter((h) => !["Wednesday", "Thursday", "Saturday"].includes(h.day)).map((h) => (
+              {HOURS.filter((h) => !["Thursday", "Saturday"].includes(h.day)).map((h) => (
                 <li key={h.day} className="flex justify-between gap-4 border-b border-cream/10 pb-1.5">
-                  <span>{h.day === "Tuesday" ? "Tue – Thu" : h.day === "Friday" ? "Fri – Sat" : h.day}</span>
+                  <span>{h.day === "Wednesday" ? "Wed – Thu" : h.day === "Friday" ? "Fri – Sat" : h.day}</span>
                   <span className="text-cream/90">{h.hours}</span>
                 </li>
               ))}

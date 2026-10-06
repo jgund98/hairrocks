@@ -310,7 +310,7 @@ export default function Home() {
               <CallChip dark />
             </div>
             <p className="mt-7 text-sm text-cream/60">
-              Tue – Thu · {HOURS[1].hours} &nbsp;·&nbsp; Fri – Sat · {HOURS[4].hours}
+              Tue · {HOURS[1].hours} &nbsp;·&nbsp; Wed – Thu · {HOURS[2].hours} &nbsp;·&nbsp; Fri – Sat · {HOURS[4].hours}
             </p>
           </Reveal>
         </div>
